@@ -14,7 +14,7 @@ function App() {
   }, [])
 
   return (
-    <Fragment>
+    <>
       <NavBar/>
       <Container style={{marginTop: '7em'}}>
         <List>
@@ -27,7 +27,7 @@ function App() {
         </List>
       </Container>
 
-    </Fragment>
+    </>
   );
 }
 
