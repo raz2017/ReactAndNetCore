@@ -10,6 +10,8 @@ using Persistence;
 
 namespace API.Controllers
 {
+
+    [AllowAnonymous]
     public class ActivitiesController : BaseApiController
     {
         private readonly DataContext _context;
