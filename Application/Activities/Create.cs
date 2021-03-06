@@ -5,14 +5,17 @@ using MediatR;
 using Persistence;
 using FluentValidation;
 using Application.Core;
+using Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Activities
 {
     public class Create
     {
-        public class Command : IRequest<Result<Unit>>{
-            
-            public Activity Activity {get;set;}
+        public class Command : IRequest<Result<Unit>>
+        {
+
+            public Activity Activity { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -25,13 +28,26 @@ namespace Application.Activities
         public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private DataContext _context;
+            private readonly IUserAccessor _userAccessor;
 
-            public Handler(DataContext context){
+            public Handler(DataContext context, IUserAccessor userAccessor)
+            {
+                _userAccessor = userAccessor;
                 _context = context;
             }
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUserName());
+
+                var attendee = new ActivityAttendee{
+                    AppUser = user, 
+                    Activity = request.Activity,
+                    IsHost = true
+                };
+
+                request.Activity.Attendees.Add(attendee);
+                
                 _context.Activities.Add(request.Activity);
 
                 var result = await _context.SaveChangesAsync() > 0;
