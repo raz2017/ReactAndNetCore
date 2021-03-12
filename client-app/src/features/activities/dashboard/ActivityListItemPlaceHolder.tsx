@@ -26,7 +26,7 @@ export default function ActivityListItemPlaceHolder(){
                     </Segment>
                     <Segment secondary style={{minHeight: 70}}/>
                     <Segment clearing>
-                        <Button disabaled color='blue' floated='right' content='View'/>
+                        <Button disabled color='blue' floated='right' content='View'/>
                     </Segment>
                 </Segment.Group>
             </Placeholder>
