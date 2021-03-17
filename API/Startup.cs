@@ -58,7 +58,7 @@ namespace API
             app.UseReferrerPolicy(opt => opt.NoReferrer());
             app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
             app.UseXfo(opt => opt.Deny());
-            app.UseCsp(opt => opt
+            app.UseCspReportOnly(opt => opt
                 .BlockAllMixedContent()
                 .StyleSources(s => s.Self().CustomSources(
                         "https://fonts.googleapis.com",
@@ -69,7 +69,7 @@ namespace API
                 .ImageSources(s => s.Self().CustomSources(
                         "https://res.cloudinary.com",
                         "https://www.facebook.com",
-                        "https://platform-lookaside.fbsbx.com", "data:"))
+                        "https://platform-lookaside.fbsbx.com", "data:", "blob:"))
                 .ScriptSources(s => s.Self().CustomSources(
                         "sha256-3lZI6Gfb7F0cLrMi8cjN6viGQHvO5Vz8WQx2XddPKtM=",
                         "https://connect.facebook.net",
