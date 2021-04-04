@@ -1,1 +1,1 @@
-# Events tool that uses React with Typescript and .NET core 
+# Events tool that uses React with Typescript and .NET Core 
